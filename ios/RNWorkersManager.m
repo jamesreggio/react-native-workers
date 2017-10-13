@@ -1,4 +1,5 @@
 //XXX support CodePush
+//XXX prevent yellow/redbox messages from routing to worker
 
 #import "RNWorkersManager.h"
 #import "RNWorkersDevSettings.h"
