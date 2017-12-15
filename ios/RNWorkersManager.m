@@ -1,4 +1,3 @@
-//XXX support CodePush
 //XXX prevent yellow/redbox messages from routing to worker
 
 #import "RNWorkersManager.h"
@@ -8,6 +7,10 @@
 #import <React/RCTAssert.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTLog.h>
+
+@interface CodePush
++ (NSURL *)bundleURLForResource:(NSString *)resourceName withExtension:(NSString *)resourceExtension;
+@end
 
 @implementation RNWorkersInstanceData
 @end
@@ -64,7 +67,18 @@ RCT_EXPORT_METHOD(startWorker:(nonnull NSNumber *)key
   // Resolve worker URL using the bundle root and resource, and the bundler port.
 
   BOOL uniquePort = NO;
-  NSURL *workerURL = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:root fallbackResource:resource];
+  NSURL *workerURL;
+
+#if !DEBUG
+  Class CodePush = NSClassFromString(@"CodePush");
+  if (CodePush) {
+    workerURL = [CodePush bundleURLForResource:resource withExtension:@"jsbundle"];
+  } else {
+#endif
+    workerURL = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:root fallbackResource:resource];
+#if !DEBUG
+  }
+#endif
 
   if (port > 0) {
     NSURLComponents *components = [NSURLComponents componentsWithURL:workerURL resolvingAgainstBaseURL:NO];
