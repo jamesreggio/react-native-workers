@@ -9,7 +9,7 @@
 #import <React/RCTLog.h>
 
 @interface CodePush
-+ (NSURL *)bundleURLForResource:(NSString *)resourceName withExtension:(NSString *)resourceExtension;
++ (NSURL *)bundleURL;
 @end
 
 @implementation RNWorkersInstanceData
@@ -72,7 +72,8 @@ RCT_EXPORT_METHOD(startWorker:(nonnull NSNumber *)key
 #if !DEBUG
   Class CodePush = NSClassFromString(@"CodePush");
   if (CodePush) {
-    workerURL = [CodePush bundleURLForResource:resource withExtension:@"jsbundle"];
+    NSString *bundleDirectory = [[[CodePush bundleURL] absoluteString] stringByDeletingLastPathComponent];
+    workerURL = [NSURL URLWithString:[NSString pathWithComponents:@[bundleDirectory, resource]]];
   } else {
 #endif
     workerURL = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:root fallbackResource:resource];
