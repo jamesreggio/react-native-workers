@@ -72,8 +72,9 @@ RCT_EXPORT_METHOD(startWorker:(nonnull NSNumber *)key
 #if !DEBUG
   Class CodePush = NSClassFromString(@"CodePush");
   if (CodePush) {
-    NSString *bundleDirectory = [[[CodePush bundleURL] absoluteString] stringByDeletingLastPathComponent];
-    workerURL = [NSURL URLWithString:[NSString pathWithComponents:@[bundleDirectory, resource]]];
+    NSString *resourceDirectory = [[[CodePush bundleURL] absoluteString] stringByDeletingLastPathComponent];
+    NSString *resourceFilename = [NSString stringWithFormat:@"%@.jsbundle", resource];
+    workerURL = [NSURL URLWithString:[NSString pathWithComponents:@[resourceDirectory, resourceFilename]]];
   } else {
 #endif
     workerURL = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:root fallbackResource:resource];
