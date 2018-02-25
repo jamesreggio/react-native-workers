@@ -9,6 +9,11 @@
 
 RCT_EXPORT_MODULE(WorkersInstanceManager);
 
++ (BOOL)requiresMainQueueSetup
+{
+  return NO;
+}
+
 - (NSArray<NSString *> *)supportedEvents
 {
   return @[@"message"];

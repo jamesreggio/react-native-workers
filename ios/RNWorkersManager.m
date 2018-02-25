@@ -24,6 +24,11 @@
 
 RCT_EXPORT_MODULE(WorkersManager);
 
++ (BOOL)requiresMainQueueSetup
+{
+  return NO;
+}
+
 - (NSArray<NSString *> *)supportedEvents
 {
   return @[@"message"];

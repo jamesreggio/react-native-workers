@@ -14,12 +14,9 @@
   return @"RCTDevSettings";
 }
 
-// RCTDevSettings produces side-effects in its setter for the `bridge` property, and
-// those side-effects must run on the main queue. The only way to guarantee that this
-// module is initialized on the main queue is to define the `constantsToExport` method.
-- (NSDictionary *)constantsToExport
++ (BOOL)requiresMainQueueSetup
 {
-  return nil;
+  return [RCTDevSettings requiresMainQueueSetup];
 }
 
 - (instancetype)initWithData:(RNWorkersInstanceData *)data
