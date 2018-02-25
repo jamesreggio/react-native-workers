@@ -1,6 +1,6 @@
 {
 	"name": "react-native-workers",
-	"version": "0.5.0",
+	"version": "0.5.1",
 	"license": "MIT",
 	"peerDependencies": {
 		"react-native": ">=0.40.0"
