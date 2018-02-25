@@ -14,9 +14,10 @@
   return @"RCTDevSettings";
 }
 
+// RCTDevSettings doesn't expose requiresMainQueueSetup, so we explicitly keep it in sync.
 + (BOOL)requiresMainQueueSetup
 {
-  return [RCTDevSettings requiresMainQueueSetup];
+  return YES;
 }
 
 - (instancetype)initWithData:(RNWorkersInstanceData *)data
